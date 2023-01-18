@@ -1,0 +1,187 @@
+{% extends "base/nav.html" %}
+{% block css %}
+<style>
+    body {
+        background: linear-gradient(45deg, #964f39, rosybrown, #1d4b5c, #52392c, #c5b988);
+        background-size: 600% 600%;
+        animation: gradient 15s ease infinite;
+        animation-direction: alternate;
+    }
+
+    @keyframes gradient {
+        0% {
+            background-position: 0% 20%;
+        }
+
+        50% {
+            background-position: 90% 50%;
+        }
+
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+    table {
+        text-align: center;
+        margin-top: 30px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    table,
+    td {
+        border: 5px solid #333;
+        border-radius: 5px;
+        background-color: white;
+
+    }
+
+    th {
+        padding: 5px;
+    }
+
+
+    thead,
+    tfoot {
+        background-color: #333;
+        color: #fff;
+    }
+
+    #final-score {
+
+        background-color: rgb(154, 125, 137);
+        border-radius: 5px;
+        width: 200px;
+        height: 100px;
+        text-align: center;
+        padding-top: 30px;
+        box-shadow: 20px 20px 50px pink inset;
+        border-style: double;
+        border-width: 5px;
+        border-color: rgb(111, 35, 35);
+        margin-top: 3%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .animated {
+        -webkit-animation-duration: 50s;
+        animation-duration: 50s;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+        -webkit-animation-timing-function: linear;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+        -webkit-animation-iteration-count: infinite;
+    }
+
+    @-webkit-keyframes shake {
+
+        0%,
+        100% {
+            -webkit-transform: translateX(0);
+        }
+
+        10%,
+        30%,
+        50%,
+        70%,
+        90% {
+            -webkit-transform: translateX(-50px);
+        }
+
+        20%,
+        40%,
+        60%,
+        80% {
+            -webkit-transform: translateX(100px);
+        }
+    }
+
+    @keyframes shake {
+
+        0%,
+        100% {
+            transform: translateX(0);
+        }
+
+        10%,
+        30%,
+        50%,
+        70%,
+        90% {
+            transform: translateX(50px);
+        }
+
+        20%,
+        40%,
+        60%,
+        80% {
+            transform: translateX(900px);
+        }
+    }
+
+    .shake {
+        -webkit-animation-name: shake;
+        animation-name: shake;
+    }
+
+    .shake {
+        margin-top: 3%;
+        background: rgba(119, 81, 81, 0);
+        height: 300px;
+        width: 600px;
+        color: aliceblue;
+        text-transform: uppercase;
+        font-weight: bold;
+
+    }
+</style>
+
+{% endblock %}
+{% block content %}
+
+<div id="res-container">
+
+    {% csrf_token %}
+    <table>
+        <thead>
+            <tr>
+                <th>Question</th>
+                <th>Wrong answers</th>
+                <th>Points</th>
+            </tr>
+        </thead>
+        {% for question in questions %}
+        <tbody>
+            <tr>
+                <td>{{ question.question }}</td>
+                <td>{{ question.number_wa }}</td>
+                <td>{{ question.point }}</td>
+
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+
+</div>
+<div id="final-score">
+    <p>Final score : {{ total_points }} / {{ question_count }}</p>
+</div>
+
+{% if total_points < average_points %} 
+    <div id="animated-example" class="animated shake">
+    <p>
+        Your score is quite low 😅! Fighting, you will do better next time 😄</p>
+    </div>
+
+    {% else %}
+    <div id="animated-example" class="animated shake">
+        <p>Very Good !!! Still, don't forget to work on the question you did not get right at the first attempt if
+            there's any 🤭!. </p>
+    </div>
+
+{% endif %}
+
+{% endblock %}

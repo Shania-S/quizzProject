@@ -1,0 +1,175 @@
+<style>
+  body {
+    background: linear-gradient(#1b2a46, #69a4af, #534848);
+  }
+
+  .container .text {
+    font-size: 35px;
+    font-weight: 600;
+    text-align: center;
+    font-family: montserrat;
+    width: 100%;
+    height: 15%;
+  }
+
+  .container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    width: 370px;
+    padding: 30px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0, 1);
+    border-radius: 10px;
+    height: 510px;
+
+  }
+
+  form .btn {
+    margin: 30px 0;
+    height: 45px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    margin-top: 17%;
+
+
+  }
+
+  form .btn button {
+    height: 100%;
+    width: 30%;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-decoration: none;
+    list-style: none;
+    text-align: center;
+    background: #973d38;
+    border-radius: 15px;
+    cursor: pointer;
+  }
+
+  form .btn button:hover {
+    background: #a26d6b;
+  }
+
+  .container form .data {
+    height: 45px;
+    width: 290px;
+    margin-left: 20px;
+    margin-bottom: 40px;
+
+
+  }
+
+
+  input {
+
+    height: 40px;
+    width: 320px;
+    border-left: none;
+    border-top: none;
+    border-right: none;
+  }
+
+  .bottom {
+
+    margin-top: 7%;
+    text-align: center;
+
+  }
+
+  a {
+    text-decoration: none;
+    color: rgb(20, 46, 93);
+    font-family: montserrat;
+    font-weight: bold;
+  }
+
+  a:hover {
+    color: rgb(95, 103, 117);
+  }
+
+  p {
+    font-family: montserrat;
+  }
+</style>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+  <title>Document</title>
+</head>
+
+<body>
+  <a href="{% url 'index' %}"><i class="fa fa-arrow-left"
+      style="font-size:50px; float:right;position:relative;color: #973d38;cursor:pointer;"></i></a>
+
+  {% block content %}
+  <div class="container">
+    <form method="post">
+      {% csrf_token %}
+      <div class="text">Sign Up</div>
+      {% for field in form %}
+      <div>
+        <div class="data">
+          {{ field }}
+          {% if field.help_text %}
+          <div class="test"><small style="color: grey; overflow:visible;">{{ field.help_text | linebreaks}}</small>
+          </div>
+
+          {% endif %}
+
+        </div>
+
+
+        {% for error in field.errors %}
+
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script>
+          var m = "{{ error }}"
+          Swal.fire({
+            title: 'Oops...',
+            text: m,
+            width: '25%',
+            padding: '3em',
+            heightAuto: false,
+            height: '100px',
+            position: 'top',
+            confirmButtonColor: '#973d38',
+            showClass: {
+              popup: 'animate__animated animate__fadeInDown'
+            },
+            hideClass: {
+              popup: 'animate__animated animate__fadeOutUp'
+            }
+          })
+        </script>
+
+        {% endfor %}
+      </div>
+      {% endfor %}
+      <div class="btn">
+        <button type="submit">Sign up</button>
+      </div>
+      <div class="bottom">
+        <p>Already have an account ?<a href="{% url 'login' %}"> Log in</a></p>
+      </div>
+
+    </form>
+
+  </div>
+  {% endblock %}
+
+</body>

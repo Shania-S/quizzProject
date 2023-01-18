@@ -1,0 +1,267 @@
+{% extends "base/nav.html" %}
+{% load static %}
+{% block css %}
+<style>
+    body {
+
+        background: linear-gradient(45deg, #964f39, #732a46, #1d4b5c, #52392c, #cac9c5, #783737);
+        background-size: 400% 400%;
+        animation: gradient 15s ease infinite;
+        animation-direction: alternate;
+    }
+
+    .play-Container {
+        display: grid;
+    }
+
+    @keyframes gradient {
+        0% {
+            background-position: 0% 20%;
+        }
+
+        50% {
+            background-position: 90% 50%;
+        }
+
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+
+    .feedCategories {
+        margin-top: 7%;
+        max-width: 100%;
+
+    }
+
+    .catList {
+        display: flex;
+        flex-wrap: wrap;
+        /* if there is not enough space */
+        margin-left: 8%;
+    }
+
+    .welcomeText {
+        text-align: center;
+    }
+
+    .card {
+        flex-shrink: 0;
+        width: 370px;
+        height: 400px;
+        margin: 25px;
+        background-color: rgba(240, 248, 255, 0.177);
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
+        position:relative;
+
+    }
+
+    .card-header {
+        width: 100%;
+        overflow: visible;
+        height: 50px;
+        background-color: #006373;
+        text-align: center;
+        font-family: montserrat;
+        font-weight: bold;
+        font-size: large;
+        text-transform: uppercase;
+        color: white;
+        border-bottom-style: double;
+        
+    }
+
+    .card-header span {
+        float: right;
+        vertical-align: middle;
+        padding: 29px 20px 13px;
+        margin-top: -40px;
+        cursor: pointer;
+    }
+
+    .dropdown-content {
+        /* Size & position */
+        position: absolute;
+        width: 40%;
+        border-radius: 5px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -o-border-radius: 5px;
+        /* Styles */
+        background: #fff;
+        -webkit-transition: all 0.3s ease-out;
+        -moz-transition: all 0.3s ease-out;
+        -ms-transition: all 0.3s ease-out;
+        -o-transition: all 0.3s ease-out;
+        transition: all 0.3s ease-out;
+        list-style: none;
+        margin-left: -13%;
+        margin-top: 5%;
+        padding: 0px;
+        /* Hiding */
+        display: none;
+    }
+
+
+    .dropdown-content:before {
+        content: "";
+        right: 20px;
+        top: -15%;
+        border-width: 12px 12px 0px 12px;
+        border-style: solid;
+        border-color: #006373 rgba(0, 0, 0, 0);
+        margin-left: 55%;
+        position: absolute;
+    }
+
+    .card-header.dropdown-content li {
+        -webkit-transition: all 0.3s ease-out;
+        -moz-transition: all 0.3s ease-out;
+        -ms-transition: all 0.3s ease-out;
+        -o-transition: all 0.3s ease-out;
+        transition: all 0.3s ease-out;
+
+    }
+
+    .card-header .dropdown-content li a {
+        display: inline-block;
+        text-decoration: none;
+        color: #565353;
+        -webkit-transition: all 0.3s ease-out;
+        -moz-transition: all 0.3s ease-out;
+        -ms-transition: all 0.3s ease-out;
+        -o-transition: all 0.3s ease-out;
+        transition: all 0.3s ease-out;
+        text-transform: capitalize;
+        font-size: 1em;
+        font-weight: 100;
+    }
+
+    .card-header .dropdown-content li:hover a {
+        color: white;
+    }
+
+    .card-header .dropdown-content li:hover {
+        background: #F29492;
+    }
+
+    .card-header .dropdown-content li {
+        padding: 10px;
+    }
+
+    .card-header .dropdown-content li:nth-child(1) {
+        border-top-left-radius: 5px;
+        -webkit-border-top-left-radius: 5px;
+        -moz-border-top-left-radius: 5px;
+        -o-border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        -webkit-border-top-right-radius: 5px;
+        -moz-border-top-right-radius: 5px;
+        -o-border-top-right-radius: 5px;
+    }
+
+    .card-header .dropdown-content li:last-child {
+        border-bottom-left-radius: 5px;
+        -webkit-border-bottom-left-radius: 5px;
+        -moz-border-bottom-left-radius: 5px;
+        -o-border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        -webkit-border-bottom-right-radius: 5px;
+        -moz-border-bottom-right-radius: 5px;
+        -o-border-bottom-right-radius: 5px;
+    }
+
+
+    .card-body {
+        
+        height: 70%;
+        background-color: #732a4600;
+        padding : 10px;
+        width:100%;
+        
+      
+    }
+
+    .card-footer {
+        padding-top: 25px;
+        text-align: center;
+       
+        border-top-style: groove;
+    }
+
+    .card-footer a {
+        font-family: montserrat;
+        padding: 10px;
+        border-radius: 7px;
+        background-image: linear-gradient(to right, #114357 0%, #F29492 51%, #114357 100%);
+        transition: 0.5s;
+        color: white;
+        background-size: 200% auto;
+        cursor: pointer;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+    .card-footer a:hover {
+        background-position: right center;
+        /* change the direction of the change here */
+        color: #fff;
+        text-decoration: none;
+    }
+
+
+    span:hover .dropdown-content {
+        display: block;
+    }
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+
+<div class="play-Container">
+
+    <div class="feedCategories">
+
+        <div class="catList">
+            {% for field in category %}
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <p>{{field.name}}</p><span><img style="margin-left:55px;" src="{% static 'images/menu.png' %}"
+                            alt="">
+                        <ul id="myDropdown" class="dropdown-content">
+                            
+                            <li><a href="#">Edit</a></li>
+                            <li class = "categoryId" data-value="{{field.id}}"><a>Delete</a></li>
+                        </ul>
+                    </span>
+
+                </div>
+
+                <div class="card-body">
+                    <p>{{field.description}}</p>
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'start-quiz' field.id %}">Start quiz</a>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+{% endblock %}

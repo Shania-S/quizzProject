@@ -1,0 +1,191 @@
+<style>
+  body {
+    background: linear-gradient(#1b2a46, #69a4af, #534848);
+  }
+
+  .container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    width: 370px;
+    padding: 30px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0, 1);
+    border-radius: 10px;
+    height: 350px;
+
+  }
+
+  .sub-container {
+    margin-top: 35px;
+  }
+
+  .container .text {
+    font-size: 35px;
+    font-weight: 600;
+    text-align: center;
+    font-family: montserrat;
+    width: 100%;
+  }
+
+  .container form {
+    margin-top: -20px;
+  }
+
+  .container form .data {
+    height: 45px;
+    width: 100px;
+    margin-left: 20px;
+    margin-bottom: 15px;
+  }
+
+  .forgot-pass {
+    margin-left: 20px;
+  }
+
+  form .btn {
+    margin: 30px 0;
+    height: 45px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    margin-top: 7%;
+
+
+  }
+
+  form .btn button {
+    height: 100%;
+    width: 30%;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-decoration: none;
+    list-style: none;
+    text-align: center;
+    background: #973d38;
+    border-radius: 15px;
+    cursor: pointer;
+  }
+
+  form .btn button:hover {
+    background: #a26d6b;
+  }
+
+  input {
+
+    height: 40px;
+    width: 320px;
+    border-left: none;
+    border-top: none;
+    border-right: none;
+  }
+
+  .bottom {
+
+    margin-top: 22%;
+    text-align: center;
+
+  }
+
+  a {
+    text-decoration: none;
+    color: rgb(20, 46, 93);
+    font-family: montserrat;
+    font-weight: bold;
+  }
+
+  a:hover {
+    color: rgb(95, 103, 117);
+  }
+
+  p {
+    font-family: montserrat;
+  }
+
+  .swal2-popup {
+    font-size: 12px ! important;
+
+  }
+</style>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+  <title>Document</title>
+</head>
+
+<body>
+  <a href="{% url 'index' %}"><i class="fa fa-arrow-left"
+      style="font-size:50px; float:right;position:relative;color: #973d38;cursor:pointer;"></i></a>
+
+  <div class="container">
+
+    <form method="POST" action="" autocomplete="off">
+
+
+      {% csrf_token %}
+      <div class="text">Login</div>
+
+      <div class="sub-container">
+        <div class="data">
+          <input type="text" name="username" placeholder="Username" autocomplete="off" required />
+        </div>
+        <div class="data">
+          <input type="password" name="password" placeholder="Password" autocomplete="off" required />
+        </div>
+        <div class="forgot-pass"><a href="#">Forgot password ?</a></div>
+        <div class="btn">
+          <button type="submit">Login</button>
+        </div>
+
+      </div>
+      <div class="bottom">
+        <p>Haven't signed up yet ?<a href="{% url 'signup' %}"> Sign up</a></p>
+      </div>
+    </form>
+
+    {% for message in messages %}
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {% if message.tags == 'error' %}
+    <script>
+      var m = "{{ message }}"
+      Swal.fire({
+        title: 'Oops...',
+        text: m,
+        width: '25%',
+        padding: '3em',
+        heightAuto: false,
+        height: '100px',
+        position: 'top',
+        confirmButtonColor: '#973d38',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp'
+        }
+      })
+    </script>
+
+    {% endif %}
+
+    {% endfor %}
+
+
+  </div>
+</body>
+
+</html>
