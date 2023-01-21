@@ -205,7 +205,7 @@
         text-decoration: none;
     }
 
-    .card-footer a:hover {
+    .card-footer a:hover, .add-cat:hover {
         background-position: right center;
         /* change the direction of the change here */
         color: #fff;
@@ -215,6 +215,19 @@
 
     span:hover .dropdown-content {
         display: block;
+    }
+    .add-cat {
+        position: absolute;
+        top : 50%;
+        left : 50%;
+        margin: -25px 0 0 -60px;
+        color: #fff;
+        font-weight: bold;
+        background-image: linear-gradient(to right, #114357 0%, #F29492 51%, #114357 100%);
+        padding: 10px;
+        border-radius: 7px;
+        background-size: 200% auto;
+        transition: 0.5s;
     }
 </style>
 
@@ -230,6 +243,7 @@
     <div class="feedCategories">
 
         <div class="catList">
+            <!--Display categories start-->
             {% for field in category %}
 
             <div class="card">
@@ -255,7 +269,14 @@
                 </div>
             </div>
             {% endfor %}
-
+            <!--Display categories end-->
+            <!--Add new category start-->
+            <div class="card">
+                <div class="card-body-add">
+                    <a href="" class="add-cat">Add category</a>
+                </div>
+            </div>
+            <!--Add new category end-->
         </div>
 
     </div>
