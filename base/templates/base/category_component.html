@@ -254,7 +254,7 @@
                             alt="">
                         <ul id="myDropdown" class="dropdown-content">
                             
-                            <li><a href="#">Edit</a></li>
+                            <li><a href="{% url 'edit-category' field.id %}">Edit</a></li>
                             <li class = "categoryId" data-value="{{field.id}}"><a>Delete</a></li>
                         </ul>
                     </span>
@@ -273,7 +273,7 @@
             <!--Add new category start-->
             <div class="card">
                 <div class="card-body-add">
-                    <a href="" class="add-cat">Add category</a>
+                    <a href="{% url 'add-category' %}" class="add-cat">Add category</a>
                 </div>
             </div>
             <!--Add new category end-->

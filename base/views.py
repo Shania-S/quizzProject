@@ -83,6 +83,13 @@ def deleteCategory(request, pk):
     category.delete()
     return redirect('categories')
 
+def addCategory(request):
+    return render(request, "base/add_category.html")
+
+def editCategory (request, pk):
+    category = Category.objects.get(id=pk)
+    return render(request,"base/edit_category.html")
+
 def wrongAnswer(request):
     questionId = 0
     countwrongA = 0
