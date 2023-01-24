@@ -1,8 +1,85 @@
 {% extends "base/nav.html" %}
 {% block css %}
 <style>
+    body {
+        background: linear-gradient(45deg, #964f39, rosybrown, #1d4b5c, #52392c, #c5b988);
+        background-size: 600% 600%;
+        animation: gradient 15s ease infinite;
+        animation-direction: alternate;
+    }
+
+    @keyframes gradient {
+        0% {
+            background-position: 0% 20%;
+        }
+
+        50% {
+            background-position: 90% 50%;
+        }
+
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+    * {
+    font-family: montserrat;
+
     
+}
+    .container {
+       
+        margin-top: 10%;
+        width : 40%;
+        padding : 5% 9%; /* vertical horizontal*/
+        margin-left: auto;
+        margin-right: auto;
+        border-radius : 5px;
+        background-color: rgba(240, 248, 255, 0.436);
+    
+    }
+    .fieldCat {
+        margin-bottom: 10px;
+    }
+    .formCat {
+  border-radius: 5px;
+  padding : 10px 10px;
+    }
+  .btnSave {
+    position: absolute;
+        left : 47%;
+        color: #fff;
+        font-weight: bold;
+        font-size: 15px;
+        background-image: linear-gradient(to right, #4894b1 0%, #a46b6a 51%, #a28760 100%);
+        padding: 10px;
+        border-radius: 7px;
+        background-size: 200% auto;
+        transition: 0.5s;
+        width : 5%;
+        cursor: pointer;
+        margin-top : 1%;
+  }
+  .btnSave:hover {
+    color:#fff;
+    background-position: right center;
+  }
+  
 </style>
 {% endblock %}
 {% block content %}
+<div class="container">
+    <form method="POST">
+        {% csrf_token %}
+     
+        <div class="fieldCat">
+          {{ form.name }}
+        </div>
+        <div class="fieldCat">
+          {{ form.description }}
+        </div>
+       
+       <input class = "btnSave" type="submit" value="Save">
+    </form>
+</div>
+
 {% endblock %}

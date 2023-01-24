@@ -13,4 +13,5 @@ urlpatterns = [
     path('signup/', views.signupPage, name='signup'),
     path('wrongAnswer', views.wrongAnswer, name='wrongAnswer'),
     path('final_result.html/', views.resultsPage , name='result'),
+    path('editCategory/<int:pk>', views.updateCategory , name='update-category'),
 ]

@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.postgres import fields
+from django import forms
+from django.forms import ModelForm, TextInput, EmailInput
 # Create your models here.
 # Link to database
 
@@ -12,6 +14,21 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        exclude = ['user']
+        widgets = {
+            'name' : TextInput({
+                'placeholder' : 'Name',
+                'class' : 'formCat'
+            }),
+            'description' : forms.Textarea({
+                'placeholder' : 'Description',
+                'class' : 'formCat'
+            })
+        }
 
 class Question(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)

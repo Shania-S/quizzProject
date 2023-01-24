@@ -84,11 +84,37 @@ def deleteCategory(request, pk):
     return redirect('categories')
 
 def addCategory(request):
-    return render(request, "base/add_category.html")
+    context = {}
+    if request.method == 'POST':
+         form = CategoryForm(request.POST)
+         if form.is_valid():
+            form = form.save(commit=False)
+            form.user = request.user
+            form.save()
+            return redirect('categories')
+            
+    else :
+        form = CategoryForm()
+        print("else")
+    context['form'] = form
+    print("here")
+    return render(request, "base/add_category.html", context)
+
+def updateCategory(request,pk):
+    if request.method == 'POST':
+        Category.objects.filter(id=pk).update(user=request.user, name=request.POST['name'], description=request.POST['description'])
+        return redirect('categories')
+    return render("base/edit_category.html")
+
 
 def editCategory (request, pk):
     category = Category.objects.get(id=pk)
-    return render(request,"base/edit_category.html")
+    categoryForm = CategoryForm(instance=category)
+    questions = Question.objects.filter(category=pk)
+    category_id = pk
+    context = {'categoryForm': categoryForm, 'questions': questions, 'category_id': category_id}
+    return render(request,"base/edit_category.html", context)
+
 
 def wrongAnswer(request):
     questionId = 0
