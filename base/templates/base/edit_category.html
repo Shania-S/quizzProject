@@ -1,0 +1,240 @@
+{% extends "base/nav.html" %}
+{% block css %}
+<style>
+    html {
+        height: 100%;
+    }
+
+    body {
+        background: linear-gradient(45deg, #964f39, rosybrown, #1d4b5c, #52392c, #cac9c5);
+        background-size: 400% 400%;
+        animation: gradient 15s ease infinite;
+        animation-direction: alternate;
+        height: 100%;
+    }
+
+    @keyframes gradient {
+        0% {
+            background-position: 0% 20%;
+        }
+
+        50% {
+            background-position: 90% 50%;
+        }
+
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+    .mainContainer {
+        display: flex;
+        flex-direction: row;
+        gap : 5%;
+        justify-content: center;
+       
+    }
+
+    .categoryContainer {
+
+        margin-top: 10%;
+        width: 40%;
+        padding: 2% 9% 2%;
+        /* top right/left bottom 
+        margin-left: auto;
+        margin-right: auto;*/
+        border-radius: 5px;
+        background-color: rgba(240, 248, 255, 0.436);
+        overflow: hidden;
+        height:40%;
+
+    }
+
+    .fieldCat {
+        margin-bottom: 25px;
+    }
+
+    .formCat {
+        border-radius: 5px;
+        padding: 10px 10px;
+    }
+
+    .btnSave {
+
+        left: 100%;
+        color: #fff;
+        font-weight: bold;
+        font-size: 15px;
+        background-image: linear-gradient(to right, #4894b1 0%, #a46b6a 51%, #a28760 100%);
+        padding: 10px;
+        border-radius: 7px;
+        background-size: 200% auto;
+        transition: 0.5s;
+        width: 30%;
+        cursor: pointer;
+        margin-top: 2%;
+        margin: 0 auto;
+        display: block;
+
+    }
+
+    .btnSave:hover {
+        color: #fff;
+        background-position: right center;
+    }
+
+    .questionContainer {
+        width : 40%;
+        border-radius: 5px;
+        background-color: rgba(240, 248, 255, 0.436);
+        margin-top: 10%;
+        overflow: hidden;
+        padding: 2% 9% 2%;
+        height:60%;
+      
+    }
+    .divider {
+	 display: flex;
+}
+ .divider:before, .divider:after {
+	 content: "";
+	 flex: 1;
+}
+ .line {
+	 align-items: center;
+	 margin: 1em -7em;
+     padding-right:60%;
+    
+}
+ .line:before, .line:after {
+	  height:1px;
+	 margin: 0 1em;
+}
+.glow:before, .glow:after {
+
+	 height: 6px;
+     padding-right:50%;
+	 -webkit-filter: blur(1px);
+	 border-radius: 5px;
+    
+
+}
+ .glow:before {
+	 background: linear-gradient(to right,#38525d , #a46b6a );
+}
+ .glow:after {
+	 background: linear-gradient(to left, #38525d , #a46b6a);
+}
+#questionsTab {
+    border-collapse: collapse;
+    width:130%;
+    position: relative;
+    margin-left:-20%;
+    display:block;
+    margin-top:26px;
+    table-layout: fixed;
+
+   
+}
+#questionsTab td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+#questionsTab tr:nth-child(even){background-color: #a29999;}
+#questionsTab th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+
+  color: white;
+  background-color: #2029328a;
+	 color: #fff;
+	 border: 1px solid #202932;
+}
+#questionsTab tr {
+  padding-bottom: 10px;
+}
+#questionsTab th {
+    text-align: left;
+  font-weight: 700;
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+.btnEdit {
+    line-height: 1;
+  display: inline-block;
+  font-size: 1rem;
+  text-decoration: none;
+  border-radius: 5px;
+  border-style:double;
+  color: #fff;
+  padding: 8px;
+  background-color: #30605f96;
+}
+.btnEdit:hover {
+    background-color: #4eabaa96;
+}
+.btnAdd {
+    line-height: 1;
+  display: inline-block;
+  font-size: 1rem;
+  text-decoration: none;
+  border-radius: 5px;
+  color: #fff;
+  padding: 10px;
+  background-color:  #30605f96;
+  margin-left: 100%;
+  position: relative;
+  width:40%;
+  text-align: center;
+  margin-top:-15%;
+}
+.btnAdd:hover {
+    background-color: #4eabaa96;
+}
+
+</style>
+
+{% endblock %}
+{% block content %}
+<div class="mainContainer">
+    <div class="categoryContainer">
+        <h2 class="divider line glow" style="margin-bottom:10%;">Category</h2>
+        <form action="{% url 'update-category' category_id %}" method="POST">
+            {% csrf_token %}
+            <div class="fieldCat">
+                {{ categoryForm.name }}
+            </div>
+            <div class="fieldCat" style=" margin-bottom:10%;">
+                {{ categoryForm.description }}
+            </div>
+            <input class="btnSave" type="submit" value="Save">
+        </form>
+    </div>
+
+    <div class="questionContainer">
+        <h2 class="divider line glow" style="margin-bottom:10%;">Questions</h2>
+        <a href="#" class="btnAdd" >Add question</a>
+        <table id="questionsTab">
+            <thead>
+                <tr>
+                    <th>Question</th>
+                    <th></th>
+                </tr>
+            </thead>
+            {% for field in questions %}
+            <tbody>
+                <tr>
+                    <td><div style="width:400px; height:auto; overflow:auto;">{{ field.question }}</div></td>
+                    <td><a href="#" class="btnEdit">Edit</a></td>
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+       
+       
+    </div>
+
+</div>
+
+{% endblock %}
