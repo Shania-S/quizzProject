@@ -9,6 +9,7 @@ from .forms import SignUpForm  # import the form created to use it
 from django.core.paginator import Paginator
 from django.http import JsonResponse, HttpResponse
 from django.db.models import Sum, Avg
+from django.views.decorators.csrf import csrf_exempt
 
 
 # Create your views here.
@@ -73,9 +74,10 @@ def categoryPage(request):
 def startQuiz(request, pk):
     # only takes the elements related to the category, 1Q per page
     p = Paginator(Question.objects.filter(category=pk), 1)
+    categoryId = pk
     page = request.GET.get('page')
     questions = p.get_page(page)
-    context = {'questions': questions}
+    context = {'questions': questions, 'categoryId':categoryId}
     return render(request, "base/quiz.html", context)
 
 def deleteCategory(request, pk):
@@ -95,9 +97,8 @@ def addCategory(request):
             
     else :
         form = CategoryForm()
-        print("else")
+
     context['form'] = form
-    print("here")
     return render(request, "base/add_category.html", context)
 
 def updateCategory(request,pk):
@@ -113,6 +114,43 @@ def editCategory (request, pk):
     questions = Question.objects.filter(category=pk)
     category_id = pk
     context = {'categoryForm': categoryForm, 'questions': questions, 'category_id': category_id}
+    return render(request,"base/edit_category.html", context)
+
+@csrf_exempt
+def addQuestion(request, pk):
+    context = {}
+    questionCatId = pk
+    categ = Category.objects.get(id=questionCatId)
+    categName = categ.name
+    if request.method == 'POST':
+        data = request.POST
+        data_ = dict(data.lists())
+        question = data_['question']
+        answer = data_['answer']
+        options = data_['options']
+        explanation = data_['explanation']
+        print(question[0])
+
+        if question[0] == None or answer[0] == "" or options[0] == "" or explanation[0] == "":
+            Question.objects.create(category_id=pk, question=question[0], answer=answer[0],options=options,explanation=explanation[0], user=request.user)
+            return JsonResponse("error",safe=False)
+        
+        elif question != "" and answer != "" and options != "" and explanation != "":
+            return JsonResponse("success",safe=False)
+    
+    form = QuestionForm()
+    context = {'form':form, 'questionCatId':questionCatId, 'categName':categName}
+    return render(request, "base/add_question.html", context)
+
+def deleteQuestion(request,pk):
+    question = Question.objects.get(id=pk)
+    categName = question.category
+    category = Category.objects.get(name=categName)
+    categoryForm = CategoryForm(instance=category)
+    questions = Question.objects.filter(category=category.id)
+    category_id = category.id
+    context = {'categoryForm': categoryForm, 'questions': questions, 'category_id': category_id}
+    question.delete()
     return render(request,"base/edit_category.html", context)
 
 

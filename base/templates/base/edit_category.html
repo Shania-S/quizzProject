@@ -47,7 +47,11 @@
         background-color: rgba(240, 248, 255, 0.436);
         overflow: hidden;
         height:40%;
-
+        background-image: url("../../static/images/night_lake2.png");
+        background-size:cover;
+        border-width: 5px;
+        border-style:inset;
+        border-color:#684747
     }
 
     .fieldCat {
@@ -91,6 +95,12 @@
         overflow: hidden;
         padding: 2% 9% 2%;
         height:60%;
+        background-image: url("../../static/images/night_lake2.png");
+        background-size:cover;
+        border-width: 5px;
+        border-style:inset;
+        border-color:#684747
+
       
     }
     .divider {
@@ -129,7 +139,7 @@
     border-collapse: collapse;
     width:130%;
     position: relative;
-    margin-left:-20%;
+    margin-left:-35%;
     display:block;
     margin-top:26px;
     table-layout: fixed;
@@ -171,8 +181,22 @@
   padding: 8px;
   background-color: #30605f96;
 }
+.btnDelete {
+    line-height: 1;
+  display: inline-block;
+  font-size: 1rem;
+  text-decoration: none;
+  border-radius: 5px;
+  border-style:double;
+  color: #fff;
+  padding: 8px;
+  background-color: #c5262696;
+}
 .btnEdit:hover {
     background-color: #4eabaa96;
+}
+.btnDelete:hover {
+    background-color: #c1606096;
 }
 .btnAdd {
     line-height: 1;
@@ -182,15 +206,24 @@
   border-radius: 5px;
   color: #fff;
   padding: 10px;
-  background-color:  #30605f96;
+  background-color:  #04212196;
   margin-left: 100%;
   position: relative;
   width:40%;
   text-align: center;
   margin-top:-15%;
+  border-width:2px;
+  border-style:groove;
 }
 .btnAdd:hover {
     background-color: #4eabaa96;
+}
+#noquestionsText {
+    background-color: #6d3535;
+    padding : 5%;
+    border-radius: 5px;
+    text-align: center;
+    color:whitesmoke;
 }
 
 </style>
@@ -214,24 +247,31 @@
 
     <div class="questionContainer">
         <h2 class="divider line glow" style="margin-bottom:10%;">Questions</h2>
-        <a href="#" class="btnAdd" >Add question</a>
+        <a href="{% url 'add-question' category_id %}" class="btnAdd" >Add question</a>
+        {% if not questions.exists %}
+        <div id="noquestionsText">
+          <p>It looks like you haven't added any questions to this category yet !<br> Please click the button on the top right to do so !</p>
+        </div>
+        {% else %}
         <table id="questionsTab">
             <thead>
                 <tr>
                     <th>Question</th>
+                    <th></th>
                     <th></th>
                 </tr>
             </thead>
             {% for field in questions %}
             <tbody>
                 <tr>
-                    <td><div style="width:400px; height:auto; overflow:auto;">{{ field.question }}</div></td>
+                    <td><div style="width:400px; height:auto; overflow:auto;color:#fff;">{{ field.question }}</div></td>
                     <td><a href="#" class="btnEdit">Edit</a></td>
+                    <td><a href="{% url 'delete-question' field.id %}" class="btnDelete">Delete</a></td>
                 </tr>
             </tbody>
             {% endfor %}
         </table>
-       
+       {% endif %}
        
     </div>
 
