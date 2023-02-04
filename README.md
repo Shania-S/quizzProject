@@ -1,4 +1,4 @@
-![Markdown logo](base/static/images/logoo.gif)
+![Markdown logo](base/static/images/logoV1.gif)
 # About the app
 This is an app that allows you to create your own quizz by category and lets you know how you scored in the end. 
 
