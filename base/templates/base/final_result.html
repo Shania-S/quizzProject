@@ -22,166 +22,147 @@
         }
     }
 
-    table {
-        text-align: center;
-        margin-top: 30px;
+    #res-container {
+        background-color: #52392c6f;
+        width: 50%;
+        margin-top: 10%;
         margin-left: auto;
         margin-right: auto;
+        position:relative;
     }
 
-    table,
-    td {
-        border: 5px solid #333;
-        border-radius: 5px;
-        background-color: white;
+    table {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+        table-layout: fixed;
+    }
 
+    .tbl-header {
+        background-color: rgba(255, 255, 255, 0.3);
+    }
+
+    tfoot {
+        text-align: center;
+        justify-content: center;
+    }
+
+    .tbl-content {
+
+        overflow-x: auto;
+        margin-top: 0px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        display: block;
+        position:absolute;
+        background-color: rgba(167, 89, 115, 0.815);
     }
 
     th {
-        padding: 5px;
-    }
+        padding: 20px 15px;
+        text-align: left;
 
-
-    thead,
-    tfoot {
-        background-color: #333;
+        font-size: 15px;
         color: #fff;
-    }
-
-    #final-score {
-
-        background-color: rgb(154, 125, 137);
-        border-radius: 5px;
-        width: 200px;
-        height: 100px;
-        text-align: center;
-        padding-top: 30px;
-        box-shadow: 20px 20px 50px pink inset;
-        border-style: double;
-        border-width: 5px;
-        border-color: rgb(111, 35, 35);
-        margin-top: 3%;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .animated {
-        -webkit-animation-duration: 50s;
-        animation-duration: 50s;
-        -webkit-animation-fill-mode: both;
-        animation-fill-mode: both;
-        -webkit-animation-timing-function: linear;
-        animation-timing-function: linear;
-        animation-iteration-count: infinite;
-        -webkit-animation-iteration-count: infinite;
-    }
-
-    @-webkit-keyframes shake {
-
-        0%,
-        100% {
-            -webkit-transform: translateX(0);
-        }
-
-        10%,
-        30%,
-        50%,
-        70%,
-        90% {
-            -webkit-transform: translateX(-50px);
-        }
-
-        20%,
-        40%,
-        60%,
-        80% {
-            -webkit-transform: translateX(100px);
-        }
-    }
-
-    @keyframes shake {
-
-        0%,
-        100% {
-            transform: translateX(0);
-        }
-
-        10%,
-        30%,
-        50%,
-        70%,
-        90% {
-            transform: translateX(50px);
-        }
-
-        20%,
-        40%,
-        60%,
-        80% {
-            transform: translateX(900px);
-        }
-    }
-
-    .shake {
-        -webkit-animation-name: shake;
-        animation-name: shake;
-    }
-
-    .shake {
-        margin-top: 3%;
-        background: rgba(119, 81, 81, 0);
-        height: 300px;
-        width: 600px;
-        color: aliceblue;
         text-transform: uppercase;
-        font-weight: bold;
-
+        font-weight: bolder;
     }
+
+    td {
+        padding: 15px;
+        text-align: left;
+        vertical-align: middle;
+        font-weight: 300;
+        font-size: 15px;
+        color: #fff;
+        border-bottom: solid 1px rgba(255, 255, 255, 0.1);
+    }
+    tfoot {
+        background-color: rgb(51, 150, 51);
+    }
+    #container {
+  left: 0px;
+  top: -100px;
+  overflow: hidden;
+ 
+}
+
+#animate{
+  margin: 0 auto;
+  width: 20px;
+  overflow: visible;
+
+}
+
+
+
 </style>
 
 {% endblock %}
 {% block content %}
+<body onload="emojiRain();">
+    <div id="container">
+        <div id="animate">
+        </div>
+      </div>
+    <div id="res-container">
 
-<div id="res-container">
-
-    {% csrf_token %}
-    <table>
-        <thead>
-            <tr>
-                <th>Question</th>
-                <th>Wrong answers</th>
-                <th>Points</th>
-            </tr>
-        </thead>
-        {% for question in questions %}
-        <tbody>
-            <tr>
-                <td>{{ question.question }}</td>
-                <td>{{ question.number_wa }}</td>
-                <td>{{ question.point }}</td>
-
-            </tr>
-        </tbody>
-        {% endfor %}
-    </table>
-
-</div>
-<div id="final-score">
-    <p>Final score : {{ total_points }} / {{ question_count }}</p>
-</div>
-
-{% if total_points < average_points %} 
-    <div id="animated-example" class="animated shake">
-    <p>
-        Your score is quite low 😅! Fighting, you will do better next time 😄</p>
+        {% csrf_token %}
+        <div class="tbl-header">
+            <table cellpadding="0" cellspacing="0" border="0" style="  margin-top: 10%;">
+                <thead>
+                    <tr>
+                        <th>Question</th>
+                        <th>Wrong answers</th>
+                        <th>Points</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="tbl-content">
+            <table cellpadding="0" cellspacing="0" border="0">
+                <tfoot id="tfootScore">
+                    <tr>
+                        <th colspan="3" style="text-align: center;">
+                            <p><strong>Final score :</strong> {{ total_points }} / {{ question_count }}</p>
+                        </th>
+                    </tr>
+                </tfoot>
+                {% for question in questions %}
+                <tbody>
+                    <tr>
+                        <td>{{ question.question }}</td>
+                        <td>{{ question.number_wa }}</td>
+                        <td>{{ question.point }}</td>
+    
+                    </tr>
+                </tbody>
+                {% endfor %}
+    
+            </table>
+        </div>
+    
+    
     </div>
+  
+    <input type="hidden" id="totalPoint" value="{{total_points}}">
+    <input type="hidden" id="averagePoint" value="{{average_points}}">
+    <!--
+         {% if total_points < average_points %} <div id="animated-example" class="animated shake">
+        <p>
+            Your score is quite low 😅! Fighting, you will do better next time 😄</p>
+        </div>
+    
+        {% else %}
+        <div id="animated-example" class="animated shake">
+            <p>Very Good !!! Still, don't forget to work on the question you did not get right at the first attempt if
+                there's any 🤭!. </p>
+        </div>
+    
+        {% endif %}
+    -->
+   
+</body>
 
-    {% else %}
-    <div id="animated-example" class="animated shake">
-        <p>Very Good !!! Still, don't forget to work on the question you did not get right at the first attempt if
-            there's any 🤭!. </p>
-    </div>
 
-{% endif %}
-
-{% endblock %}
+    {% endblock %}

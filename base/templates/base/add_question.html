@@ -1,0 +1,329 @@
+{% extends "base/nav.html" %}
+{% load static %}
+{% block css %}
+<style>
+  body {
+    background: linear-gradient(45deg, #964f39, rosybrown, #1d4b5c, #52392c, #cac9c5);
+
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+    animation-direction: alternate;
+  }
+
+  @keyframes gradient {
+    0% {
+      background-position: 0% 20%;
+    }
+
+    50% {
+      background-position: 90% 50%;
+    }
+
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  #questionContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 10% auto 0;
+    /*top right/left bottom*/
+    background-color: rgba(49, 77, 101, 0.366);
+    width: 70%;
+    padding: 4%;
+    border-radius: 5px;
+    border-style: groove;
+    background-image: url('../../static/images/stars_tran.png');
+    background-size: cover;
+
+
+  }
+
+  table {
+
+    width: 100%;
+    margin: auto 0;
+
+  }
+
+
+  input[type="text"],
+  textarea{
+    width: 100%;
+    padding: 12px;
+    height: 10%;
+    margin-bottom: 5%;
+    border-radius: 5px;
+    font-family: montserrat;
+  }
+  .selectBox {
+    display:flex;
+    flex-direction: column;
+    width:400px;
+    margin-bottom: 5%;
+    
+  }
+  .icon-inside-plus,
+  .icon-inside-minus {
+position: relative;
+
+
+
+  }
+
+  .icon-inside-plus i {
+    margin-left: -10px;
+    padding: 10px 10px;
+    color: #5f2621;
+    cursor: pointer;
+    margin-top:-35%;
+  
+
+  } 
+
+  .icon-inside-minus i {
+    margin-left: -20px;
+    padding: 6px 10px;
+    color: #5f2621;
+    cursor: pointer;
+    margin-top:-43%;
+  }
+
+  .icon-inside-plus i:hover,
+  .icon-inside-minus i:hover {
+    color: #82413b;
+  }
+
+  .btnSave {
+    position: absolute;
+    left: 47%;
+    color: #fff;
+    font-weight: bold;
+    font-size: 15px;
+    background-image: linear-gradient(to right, #4894b1 0%, #a46b6a 51%, #a28760 100%);
+    padding: 10px;
+    border-radius: 7px;
+    background-size: 200% auto;
+    transition: 0.5s;
+    width: 7%;
+    cursor: pointer;
+    margin-bottom: 5%;
+  }
+
+  .btnOk {
+    position: absolute;
+    left: 47%;
+    color: #fff;
+    font-weight: bold;
+    font-size: 15px;
+    background-image: linear-gradient(to right, #4894b1 0%, #a46b6a 51%, #a28760 100%);
+    padding: 10px;
+    border-radius: 7px;
+    background-size: 200% auto;
+    transition: 0.5s;
+    width: 13%;
+    cursor: pointer;
+    margin-top: 1%;
+  }
+
+  .btnSave:hover,
+  .btnOk:hover {
+    color: #fff;
+    background-position: right center;
+  }
+
+  .popContainer {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.366);
+    display: flex;
+    position: absolute;
+    top: 0;
+    align-items: center;
+    justify-content: center;
+    display: none;
+  }
+
+  .popupBox {
+    width: 500px;
+    height: 170px;
+    background-color: #fff;
+    border-radius: 10px;
+    text-align: center;
+    padding: 20px;
+    position: relative;
+
+  }
+
+  .popupBox input {
+    display: block;
+    padding: 20px;
+    margin: 25px auto;
+  }
+
+  .close {
+    position: absolute;
+    top: 0;
+    right: 14px;
+    font-size: 42px;
+    transform: rotate(45deg);
+    cursor: pointer;
+    color: #4894b1;
+  }
+
+  .close:hover {
+    color: #a46b6a;
+  }
+
+  .selectBox .optionsContainer {
+    background:  #526070;
+    color: #f5f6fa;
+    max-height:0;
+    opacity: 0;
+    width:26%;
+    transition: all 0.4s;
+    border-radius: 8px;
+    overflow: hidden;
+    order:1;
+    position:absolute;
+    margin-top:3%;
+    height:20%;
+  }
+  .selected {
+    background:#fcfcfd;
+    color:#70707b;
+    position:relative;
+    order:0;
+    font-family: montserrat;
+    font-size: small;
+    border-radius: 5px;
+   
+
+  }
+  .selected::after {
+    content:"";
+    background:url('../../static/images/down-arrow.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    position:absolute;
+    height:100%;
+    width:25px;
+    right:10px;
+    top:10px;
+    transition: all 0.4s;
+
+  }
+  .selectBox .optionsContainer.active {
+    max-height:240px;
+    opacity:1;
+    overflow-y: scroll;
+  }
+  .selectBox .optionsContainer.active + .selected::after {
+    transform: rotateX(180deg);
+    top:-6px;
+  }
+  .selectBox .optionsContainer::-webkit-scrollbar {
+    width:8px;
+    background: #0d141f;
+    border-radius: 0 8px 8px 0; /* top-left top-right bottom-right bottom-left*/
+  }
+  .selectBox .optionsContainer::-webkit-scrollbar-thumb {
+    background: #525861;
+    border-radius: 0 8px 8px 0; /* top-left top-right bottom-right bottom-left*/
+  }
+  .selectBox .option, .selected {
+    padding: 12px 12px;
+    cursor:pointer;
+  }
+  .selectBox .option:hover {
+    background: #a46b6a;
+  }
+  .selectBox label {
+    cursor:pointer;
+    font-size: small;
+
+  }
+  .selectBox .option .radio {
+    display:none;
+  }
+  .editOption {
+    border-radius: 5px;
+    width: 100%;
+    padding: 12px;
+    height: 10%;
+    background-color: #c99a9a;
+  }
+  #categName {
+    position:absolute;
+    top:22%;
+    text-transform: uppercase;
+  
+  background: -webkit-linear-gradient(rgb(238, 236, 236), rgb(226, 126, 126));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  }
+
+</style>
+{% endblock %}
+{% block content %}
+{% csrf_token %}
+
+<div id="questionContainer">
+  <div >
+    <h2 id="categName">{{categName}}</h2>
+  </div>
+  <form method="POST" action="">
+
+    <table>
+      {% for field in form %}
+      <tr>
+        {% if field.name == 'options' %}
+      {{field}}
+        <td class="selectBox" id="selectBox">
+            <div class="optionsContainer">
+              <!--
+                   <div class="option" id="edd">
+                <input type="radio" class="radio" id="automobiles" name="category">
+                <label for="automobiles" class="editable" id="editable1">Automobiles</label>
+              </div>
+              <div class="option" id="eee">
+                <input type="radio" class="radio" id="tech" name="category">
+                <label for="tech" class="editable" id="editable2">Technology</label>
+              </div>
+              -->
+           
+            </div>
+            <div class="selected">
+              Click on + to add options and - to remove
+            </div>
+            <input id = "editOption" class="editOption form-control" placeholder="..." style="display:none;"></input>
+        </td>
+        <td class="icon-inside-plus">
+          <i class="fa fa-duotone fa-square-plus fa-3x" id="addOption"></i>
+        </td>
+        <td class="icon-inside-minus">
+          <i class="fa fa-solid fa-square-minus fa-3x" id="removeOption"></i>
+        </td>
+      
+        {% else %}
+        <td>{{field}}</td>
+        {% endif %}
+      </tr>
+      {% endfor %}
+    </table>
+    <input type="hidden" name="quesCategoryId" id="quesCategoryId" value="{{questionCatId}}">
+    <input class="btnSave" id="btnAddQuestion"type="submit" value="Save">
+    </form>
+</div>
+<div class="popContainer">
+  <div class="popupBox">
+    <div id="close" class="close">+</div>
+    <input type="text" placeholder="Enter option here" id="theOption">
+    <a href="" class="btnOk" id="btnOk">OK</a>
+  </div>
+</div>
+
+
+{% endblock %}

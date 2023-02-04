@@ -160,6 +160,25 @@
     #check-answer:hover, #btnResults:hover {
         background: #cac9c5;
     }
+    #noquestionsText {
+        background-color: #9e6654;
+        color:azure;
+        padding: 5%;
+        margin:15% 2%;
+        border-radius: 10px;
+    }
+    #noquestionsText a {
+        text-decoration: none;
+        margin : 40%;
+        background-color: #1d4b5c;
+        color:#cac9c5;
+        padding : 10px;
+        border-radius: 5px;
+      
+    }
+    #noquestionsText a:hover {
+        background-color: #335967;
+    }
  
     
 </style>
@@ -169,7 +188,12 @@
 
 
     <div class="quiz">
-
+        {% if not questions %}
+        <div id="noquestionsText">
+        <p>Oopss, you haven' added any questions yet 😅. Click the button below to do so !</p>
+        <a href="{% url 'add-question' categoryId %}" class="btnAdd">Add question</a>
+        </div>
+        {% else %}
         {% for question in questions %}
         <form action="/final_result.html/" method="post">
             {% csrf_token %}
@@ -219,7 +243,7 @@
 
         </form>
         {% endfor %}
-
+       {% endif %}
 
     </div>
    
