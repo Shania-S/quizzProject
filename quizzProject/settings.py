@@ -84,7 +84,7 @@ DATABASES = {
         'NAME': 'quizzdb',
         'USER': 'shaniasta',
         'PASSWORD': 'shaniasta',
-        'HOST': '0.0.0.0:$PORT',
+        'HOST': '0.0.0.0',
         'PORT': '5433',
     }
 }
