@@ -18,3 +18,4 @@ tomli==2.0.1
 tzdata==2022.6
 urllib3==1.26.13
 virtualenv==20.17.0
+whitenoise==6.3.0
