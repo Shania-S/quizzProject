@@ -127,15 +127,17 @@ def addQuestion(request, pk):
         data_ = dict(data.lists())
         question = data_['question']
         answer = data_['answer']
-        options = data_['options']
+        tmpoptions = (data_['options'])[0].split(";")
+        options = tmpoptions[:-1]
         explanation = data_['explanation']
-        print(question[0])
-
+        
+        
+        print(data_)
         if question[0] == None or answer[0] == "" or options[0] == "" or explanation[0] == "":
-            Question.objects.create(category_id=pk, question=question[0], answer=answer[0],options=options,explanation=explanation[0], user=request.user)
             return JsonResponse("error",safe=False)
         
         elif question != "" and answer != "" and options != "" and explanation != "":
+            Question.objects.create(category_id=pk, question=question[0], answer=answer[0],options=options,explanation=explanation[0], user=request.user)
             return JsonResponse("success",safe=False)
     
     form = QuestionForm()
