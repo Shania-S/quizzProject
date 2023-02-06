@@ -82,4 +82,3 @@ class Number_Of_WrongA(models.Model):
 
     def __str__(self):
         return str(self.question)
-

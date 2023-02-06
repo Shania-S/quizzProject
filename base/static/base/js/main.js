@@ -274,13 +274,15 @@ const btnAddQ = document.getElementById("btnAddQuestion");
 btnAddQ.addEventListener("click", toaddQuestion);
 function toaddQuestion() {
     btnAddQ.setAttribute("disabled", "disabled");
-    var options = [];
+    var options = ""
+
     var quesCategoryId = $("#quesCategoryId").val();
     for (var i = 0; i < optionsList.length; i++) {
         let labelId = optionsList[i].querySelector("label").id;
         let labelText = document.getElementById(labelId).innerHTML;
-        options.push(labelText);
+        options+=labelText+";";
     }
+    
     document.getElementById("options").value = options;
 
 
