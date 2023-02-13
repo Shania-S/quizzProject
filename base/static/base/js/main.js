@@ -230,8 +230,10 @@ function removeSelectedOption(e) {
                 let optionId = optionsList[i].id;
                 elementToRemove = document.getElementById(optionId);
                 elementToRemove.remove();
-                selected.innerHTML = "Click on the icon to add options";
+                selected.innerHTML = "Click on + to add options and - to remove";
                 found = true;
+                optionsList.splice(i,1);
+                console.log("removed");
             }
             i++;
         };
@@ -240,7 +242,7 @@ function removeSelectedOption(e) {
         alert("Cancel was pressed");
     }
 
-
+console.log(optionsList);
 }
 
 // To close the popup box
@@ -272,7 +274,7 @@ function getInputValue(e) {
 const btnAddQ = document.getElementById("btnAddQuestion");
 btnAddQ.addEventListener("click", toaddQuestion);
 function toaddQuestion() {
-    btnAddQ.setAttribute("disabled", "disabled");
+   btnAddQ.setAttribute("disabled", "disabled");
     var options = ""
 
     var quesCategoryId = $("#quesCategoryId").val();
