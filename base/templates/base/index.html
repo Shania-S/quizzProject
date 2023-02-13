@@ -37,7 +37,6 @@
 
         margin: 10px;
         padding: 20px;
-
         text-align: center;
         font-family: Georgia, 'Times New Roman', Times, serif;
     }
@@ -88,16 +87,13 @@
 <div class="flex-container">
     <div id="left-side">
         <p style=" font-size: 40px; color:beige;">Make your Own Quiz <br>&nbsp; for Free</p>
-        <p style="font-size:20px; margin-top:30px;margin-left:60px;color:rgb(228, 222, 222);">Test yourself by creating
+        <p style="font-size:20px; margin-top:30px;margin-left:60px;color:rgb(228, 222, 222);">Challenge yourself by creating
             a quiz in order to improve memory and to retain information </p>
         <a href="{% url 'categories' %}" id="start-btn">Get started now</a>
     </div>
     <div id="right-side">
         <img class="image" src="{% static 'images/study.jpg' %}" alt="picture of anime girl studying">
     </div>
-
 </div>
-
-
 
 {% endblock %}

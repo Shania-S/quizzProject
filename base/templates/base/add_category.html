@@ -1,0 +1,88 @@
+{% extends "base/nav.html" %}
+{% block css %}
+<style>
+  body {
+    background-size: 100%;
+    animation: gradient 5s ease infinite;
+    animation-direction: alternate;
+    height: 100%;
+    background-image: url("../../static/images/abstract-stars.jpg");
+  }
+
+  * {
+    font-family: montserrat;
+  }
+
+  .container {
+    margin-top: 10%;
+    width: 40%;
+    padding: 5% 9%;
+    /* vertical horizontal*/
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 5px;
+    background-image: url("../../static/images/night_lake2.png");
+    background-size: cover;
+    border-width: 5px;
+    border-style: inset;
+    border-color: #684747
+  }
+
+  .fieldCat {
+    margin-bottom: 10px;
+  }
+
+  input {
+
+    width: 100%;
+  }
+
+  .formCat {
+    border-radius: 5px;
+    padding: 10px 10px;
+  }
+
+  .btnSave {
+    position: absolute;
+    left: 47%;
+    color: #fff;
+
+    font-size: 15px;
+    background-image: linear-gradient(to right, #272b2c 0%, #a46b6a 51%, #a28760 100%);
+    padding: 10px;
+    border-radius: 5px;
+    background-size: 200% auto;
+    transition: 0.5s;
+    width: 5%;
+    cursor: pointer;
+    margin-top: 1%;
+    border: none;
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .btnSave:hover {
+    color: #fff;
+    background-position: right center;
+  }
+</style>
+{% endblock %}
+{% block content %}
+<!-- Form with name and description input Start-->
+<div class="container">
+  <form method="POST">
+    {% csrf_token %}
+
+    <div class="fieldCat">
+      {{ form.name }}
+    </div>
+    <div class="fieldCat">
+      {{ form.description }}
+    </div>
+
+    <input class="btnSave" type="submit" value="Save">
+  </form>
+</div>
+<!-- Form with name and description input End-->
+
+{% endblock %}

@@ -5,14 +5,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Navigation bar</title>
     {% block bootstrap  %}
     {% endblock %}
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://kit.fontawesome.com/42b2e72b3a.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="{% static '/base/css/main.css' %}" />
     {% block css  %}
     {% endblock %}
@@ -30,30 +30,26 @@
             <li class="ucontrol"><a href="#">Contact</a></li>
         </ul>
         <ul class="right-menu">
-           
-            
-            <!-- Logged in -->
+            <!-- Logged in start-->
             {% if request.user.is_authenticated %}
             <li class="uname"><a href="#">@{{request.user.username}}</a>
                 <ul class="drop-down">
                     <li class="drop-style"><a>Profile</a></li>
-                    <li class="drop-style"><a>Add category</a></li>
+                    <li class="drop-style"><a href="{% url 'add-category' %}">Add category</a></li>
                 </ul>
             </li>
-    
             <li class="ucontrol"><a href="{% url 'logout' %}">Logout</a></li>
+            <!-- Logged in end-->
             {% else %}
             <li class="ucontrol"><a href="{% url 'login' %}">Login</a></li>
             <li class="ucontrol"><a href="{% url 'signup' %}">Sign up</a></li>
             {% endif %}
         </ul>
+
     </div>
-    
     {% block content %}
     {% endblock %}
     <script src="{% static 'base/js/main.js' %}"></script>
-   
     
 </body>
-
 </html>
