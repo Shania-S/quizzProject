@@ -4,29 +4,18 @@
 <style>
     body {
 
-        background: linear-gradient(45deg, #964f39, #732a46, #1d4b5c, #52392c, #cac9c5, #783737);
-        background-size: 400% 400%;
+
+        background-size: cover;
         animation: gradient 15s ease infinite;
         animation-direction: alternate;
+        background-image: url("../../static/images/hd_minimalism.jpg");
     }
 
     .play-Container {
         display: grid;
     }
 
-    @keyframes gradient {
-        0% {
-            background-position: 0% 20%;
-        }
 
-        50% {
-            background-position: 90% 50%;
-        }
-
-        100% {
-            background-position: 0% 50%;
-        }
-    }
 
 
     .feedCategories {
@@ -37,8 +26,7 @@
 
     .catList {
         display: flex;
-        flex-wrap: wrap;
-        /* if there is not enough space */
+        flex-wrap: wrap;/* if there is not enough space */
         margin-left: 8%;
     }
 
@@ -51,11 +39,10 @@
         width: 370px;
         height: 400px;
         margin: 25px;
-        background-color: rgba(240, 248, 255, 0.177);
         border-radius: 10px;
         overflow: hidden;
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
-        position:relative;
+        position: relative;
         background-image: url("../../static/images/sunset2.png");
         background-size: cover;
         border-width: 3px;
@@ -75,7 +62,7 @@
         text-transform: uppercase;
         color: white;
         border-bottom-style: double;
-        
+
     }
 
     .card-header span {
@@ -87,14 +74,12 @@
     }
 
     .dropdown-content {
-        /* Size & position */
         position: absolute;
         width: 40%;
         border-radius: 5px;
         -webkit-border-radius: 5px;
         -moz-border-radius: 5px;
         -o-border-radius: 5px;
-        /* Styles */
         background: #fff;
         -webkit-transition: all 0.3s ease-out;
         -moz-transition: all 0.3s ease-out;
@@ -105,7 +90,6 @@
         margin-left: -13%;
         margin-top: 5%;
         padding: 0px;
-        /* Hiding */
         display: none;
     }
 
@@ -178,59 +162,56 @@
         -o-border-bottom-right-radius: 5px;
     }
 
-
     .card-body {
-        
+
         height: 70%;
-        background-color: #732a4600;
-        padding : 10px;
-        width:100%;
-        color:#fff;
-        
-      
+        padding: 10px;
+        width: 100%;
+        color: #fff;
+
     }
 
     .card-footer {
         padding-top: 25px;
         text-align: center;
-       
+
         border-top-style: groove;
     }
 
     .card-footer a {
         font-family: montserrat;
         padding: 10px;
-        border-radius: 7px;
+        border-radius: 5px;
         background-image: linear-gradient(to right, #114357 0%, #F29492 51%, #114357 100%);
         transition: 0.5s;
         color: white;
         background-size: 200% auto;
         cursor: pointer;
-        font-weight: bold;
+
         text-decoration: none;
     }
 
-    .card-footer a:hover, .add-cat:hover {
+    .card-footer a:hover,
+    .add-cat:hover {
         background-position: right center;
-        /* change the direction of the change here */
         color: #fff;
         text-decoration: none;
     }
-
 
     span:hover .dropdown-content {
         display: block;
     }
+
     .add-cat {
         position: absolute;
-        top : 50%;
-        left : 50%;
+        top: 50%;
+        left: 50%;
         margin: -25px 0 0 -60px;
         color: #fff;
-        font-weight: bold;
+
         background-image: linear-gradient(to right, #114357 0%, #F29492 51%, #114357 100%);
         padding: 10px;
-        border-radius: 7px;
+        border-radius: 5px;
         background-size: 200% auto;
         transition: 0.5s;
     }
@@ -248,7 +229,7 @@
     <div class="feedCategories">
 
         <div class="catList">
-            <!--Display categories start-->
+            <!--Display categories Start-->
             {% for field in category %}
 
             <div class="card">
@@ -258,9 +239,9 @@
                     <p>{{field.name}}</p><span><img style="margin-left:55px;" src="{% static 'images/menu.png' %}"
                             alt="">
                         <ul id="myDropdown" class="dropdown-content">
-                            
+
                             <li><a href="{% url 'edit-category' field.id %}">Edit</a></li>
-                            <li class = "categoryId" data-value="{{field.id}}"><a>Delete</a></li>
+                            <li class="categoryId" data-value="{{field.id}}"><a>Delete</a></li>
                         </ul>
                     </span>
 
@@ -274,14 +255,14 @@
                 </div>
             </div>
             {% endfor %}
-            <!--Display categories end-->
-            <!--Add new category start-->
+            <!--Display categories End-->
+            <!--Add new category Start-->
             <div class="card">
                 <div class="card-body-add">
                     <a href="{% url 'add-category' %}" class="add-cat">Add category</a>
                 </div>
             </div>
-            <!--Add new category end-->
+            <!--Add new category End-->
         </div>
 
     </div>

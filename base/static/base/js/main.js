@@ -7,6 +7,7 @@ var dict = {};
 
 /* Check user input, iterate over all the options, and verify if checked answer is equal to the correct one 
    If it's correct, the user can't do anything anymore, the other elements are disabled.
+   These lines are executed during the quiz, it starts here
 */
 function displayRadioValue() {
 
@@ -31,7 +32,6 @@ function displayRadioValue() {
                     error: function (xhr, ajaxOptions, thrownError) {
                         alert('error');
                     },
-                    //timeout : 1000//timeout of the ajax call
                 });
 
 
@@ -119,11 +119,11 @@ function explanationBox() {
         }
     })
 }
+/*.. and ends here */
 
-/* Iterate over the class */
+/* This function is called when the user wants to remove a category */
 for (const redElement of document.querySelectorAll('.categoryId')) {
 
-    /* Add click event handler */
     redElement.addEventListener('click', function () {
         Swal.fire({
             title: 'Are you sure?',
@@ -148,6 +148,8 @@ for (const redElement of document.querySelectorAll('.categoryId')) {
         })
     });
 }
+
+/* These lines are executed when adding a new question, it starts here*/
 var selected = document.querySelector(".selected");
 const optionsContainer = document.querySelector(".optionsContainer");
 var optionsList = Array.prototype.slice.call(document.querySelectorAll(".option"));
@@ -197,11 +199,8 @@ function dynamicEditOption() {
 };
 
 
-// By clicking on the plus icon, a popup box will appear for the user to enter an option
 const btnAddOption = document.getElementById("addOption");
 const btnRemoveOption = document.getElementById("removeOption");
-
-//Add event listeners
 btnAddOption.addEventListener("click", popOutNow);
 btnRemoveOption.addEventListener("click", removeSelectedOption);
 
@@ -267,7 +266,7 @@ function getInputValue(e) {
     $(".optionsContainer").append(divOption);
     divOption.onclick = dynamicEditOption;
     document.querySelector(".popContainer").style.display = "none";
-    optionsList.push(divOption); // add the new option in the list of options
+    optionsList.push(divOption);
 
 }
 const btnAddQ = document.getElementById("btnAddQuestion");
@@ -280,9 +279,9 @@ function toaddQuestion() {
     for (var i = 0; i < optionsList.length; i++) {
         let labelId = optionsList[i].querySelector("label").id;
         let labelText = document.getElementById(labelId).innerHTML;
-        options+=labelText+";";
+        options += labelText + ";";
     }
-    
+
     document.getElementById("options").value = options;
 
 
@@ -300,18 +299,18 @@ function toaddQuestion() {
         dataType: "json",
         encode: true,
         success: function (data) {
-            if (data=="success") {
+            if (data == "success") {
                 Swal.fire({
                     position: 'top',
                     icon: 'success',
                     title: 'Question added successfully',
                     showConfirmButton: true
-                  }).then((result) => {
-    
+                }).then((result) => {
+
                     if (result.isConfirmed) {
                         window.location.href = "../categories";
                     }
-        
+
                 })
 
             }
@@ -320,110 +319,101 @@ function toaddQuestion() {
                     icon: 'error',
                     title: 'Oops...',
                     text: "All the fields are required !",
-            
-                  }).then((result) => {
-    
+
+                }).then((result) => {
+
                     if (result.isConfirmed) {
-                        window.location.href = "../category/"+quesCategoryId;
+                        window.location.href = "../category/" + quesCategoryId;
                     }
-        
                 })
-            
-        
-
             }
-        
-           
-          
-
         }
     })
 
 }
+/* .. and ends here*/
 
 
+/* Make emoji fall in the result template */
 function emojiRain() {
-    
+
     var totalPoint = document.getElementById('totalPoint').value;
     var averagePoint = document.getElementById('averagePoint').value;
     var finalScore = document.getElementById("tfootScore");
 
     if (totalPoint < averagePoint) {
-        
+
         finalScore.style.backgroundColor = 'red';
         var emoji = ['🌧', '😭', '😶', '😐', '😕'];
-       rainrainEmoji(emoji);
+        rainrainEmoji(emoji);
     }
     else {
         var emoji = ['😎', '🥳', '👏', '💃', '🕺', '🔥', '🎊', '🎉', '💯'];
         rainrainEmoji(emoji);
     }
 
-
 }
 
-function rainrainEmoji (emoji) {
+function rainrainEmoji(emoji) {
     var container = document.getElementById('animate');
     var circles = [];
 
     for (var i = 0; i < 5; i++) {
-      addCircle(i * 150, [10 + 0, 300], emoji[Math.floor(Math.random() * emoji.length)]);
-      addCircle(i * 150, [10 + 0, -300], emoji[Math.floor(Math.random() * emoji.length)]);
-      addCircle(i * 150, [10 - 200, -300], emoji[Math.floor(Math.random() * emoji.length)]);
-      addCircle(i * 150, [10 + 400, 300], emoji[Math.floor(Math.random() * emoji.length)]);
-      addCircle(i * 150, [10 - 600, -300], emoji[Math.floor(Math.random() * emoji.length)]);
-      addCircle(i * 150, [10 + 600, 300], emoji[Math.floor(Math.random() * emoji.length)]);
+        addCircle(i * 150, [10 + 0, 300], emoji[Math.floor(Math.random() * emoji.length)]);
+        addCircle(i * 150, [10 + 0, -300], emoji[Math.floor(Math.random() * emoji.length)]);
+        addCircle(i * 150, [10 - 200, -300], emoji[Math.floor(Math.random() * emoji.length)]);
+        addCircle(i * 150, [10 + 400, 300], emoji[Math.floor(Math.random() * emoji.length)]);
+        addCircle(i * 150, [10 - 600, -300], emoji[Math.floor(Math.random() * emoji.length)]);
+        addCircle(i * 150, [10 + 600, 300], emoji[Math.floor(Math.random() * emoji.length)]);
     }
-    
-    
-    
-    function addCircle(delay, range, color) {
-      setTimeout(function() {
-        var c = new Circle(range[0] + Math.random() * range[1], 80 + Math.random() * 4, color, {
-          x: -0.15 + Math.random() * 0.3,
-          y: 1 + Math.random() * 1
-        }, range);
-        circles.push(c);
-      }, delay);
-    }
-    
-    function Circle(x, y, c, v, range) {
-      var _this = this;
-      this.x = x;
-      this.y = y;
-      this.color = c;
-      this.v = v;
-      this.range = range;
-      this.element = document.createElement('span');
-      this.element.style.opacity = 0;
-      this.element.style.position = 'absolute';
-      this.element.style.fontSize = '26px';
-      this.element.style.color = 'hsl('+(Math.random()*360|0)+',80%,50%)';
-      this.element.innerHTML = c;
-      container.appendChild(this.element);
-    
-      this.update = function() {
-        if (_this.y > 800) {
-          _this.y = 80 + Math.random() * 4;
-          _this.x = _this.range[0] + Math.random() * _this.range[1];
-        }
-        _this.y += _this.v.y;
-        _this.x += _this.v.x;
-        this.element.style.opacity = 1;
-        this.element.style.transform = 'translate3d(' + _this.x + 'px, ' + _this.y + 'px, 0px)';
-        this.element.style.webkitTransform = 'translate3d(' + _this.x + 'px, ' + _this.y + 'px, 0px)';
-        this.element.style.mozTransform = 'translate3d(' + _this.x + 'px, ' + _this.y + 'px, 0px)';
-      };
-    }
-    
-    function animate() {
-      for (var i in circles) {
-        circles[i].update();
-      }
-      requestAnimationFrame(animate);
-    }
-    
-    animate();
-    
 
+
+
+    function addCircle(delay, range, color) {
+        setTimeout(function () {
+            var c = new Circle(range[0] + Math.random() * range[1], 80 + Math.random() * 4, color, {
+                x: -0.15 + Math.random() * 0.3,
+                y: 1 + Math.random() * 1
+            }, range);
+            circles.push(c);
+        }, delay);
+    }
+
+    function Circle(x, y, c, v, range) {
+        var _this = this;
+        this.x = x;
+        this.y = y;
+        this.color = c;
+        this.v = v;
+        this.range = range;
+        this.element = document.createElement('span');
+        this.element.style.opacity = 0;
+        this.element.style.position = 'absolute';
+        this.element.style.fontSize = '26px';
+        this.element.style.color = 'hsl(' + (Math.random() * 360 | 0) + ',80%,50%)';
+        this.element.innerHTML = c;
+        container.appendChild(this.element);
+
+        this.update = function () {
+            if (_this.y > 800) {
+                _this.y = 80 + Math.random() * 4;
+                _this.x = _this.range[0] + Math.random() * _this.range[1];
+            }
+            _this.y += _this.v.y;
+            _this.x += _this.v.x;
+            this.element.style.opacity = 1;
+            this.element.style.transform = 'translate3d(' + _this.x + 'px, ' + _this.y + 'px, 0px)';
+            this.element.style.webkitTransform = 'translate3d(' + _this.x + 'px, ' + _this.y + 'px, 0px)';
+            this.element.style.mozTransform = 'translate3d(' + _this.x + 'px, ' + _this.y + 'px, 0px)';
+        };
+    }
+
+    function animate() {
+        for (var i in circles) {
+            circles[i].update();
+        }
+        requestAnimationFrame(animate);
+    }
+
+    animate();
 }

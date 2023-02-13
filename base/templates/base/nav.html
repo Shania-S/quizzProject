@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Navigation bar</title>
     {% block bootstrap  %}
     {% endblock %}
     
@@ -30,9 +30,7 @@
             <li class="ucontrol"><a href="#">Contact</a></li>
         </ul>
         <ul class="right-menu">
-           
-            
-            <!-- Logged in -->
+            <!-- Logged in start-->
             {% if request.user.is_authenticated %}
             <li class="uname"><a href="#">@{{request.user.username}}</a>
                 <ul class="drop-down">
@@ -40,20 +38,18 @@
                     <li class="drop-style"><a href="{% url 'add-category' %}">Add category</a></li>
                 </ul>
             </li>
-    
             <li class="ucontrol"><a href="{% url 'logout' %}">Logout</a></li>
+            <!-- Logged in end-->
             {% else %}
             <li class="ucontrol"><a href="{% url 'login' %}">Login</a></li>
             <li class="ucontrol"><a href="{% url 'signup' %}">Sign up</a></li>
             {% endif %}
         </ul>
+
     </div>
-    
     {% block content %}
     {% endblock %}
     <script src="{% static 'base/js/main.js' %}"></script>
-   
     
 </body>
-
 </html>

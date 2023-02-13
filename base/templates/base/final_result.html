@@ -28,7 +28,7 @@
         margin-top: 10%;
         margin-left: auto;
         margin-right: auto;
-        position:relative;
+        position: relative;
     }
 
     table {
@@ -54,7 +54,7 @@
         margin-top: 0px;
         border: 1px solid rgba(255, 255, 255, 0.3);
         display: block;
-        position:absolute;
+        position: absolute;
         background-color: rgba(167, 89, 115, 0.815);
     }
 
@@ -77,34 +77,34 @@
         color: #fff;
         border-bottom: solid 1px rgba(255, 255, 255, 0.1);
     }
+
     tfoot {
         background-color: rgb(51, 150, 51);
     }
+
     #container {
-  left: 0px;
-  top: -100px;
-  overflow: hidden;
- 
-}
+        left: 0px;
+        top: -100px;
+        overflow: hidden;
 
-#animate{
-  margin: 0 auto;
-  width: 20px;
-  overflow: visible;
+    }
 
-}
+    #animate {
+        margin: 0 auto;
+        width: 20px;
+        overflow: visible;
 
-
-
+    }
 </style>
 
 {% endblock %}
 {% block content %}
+
 <body onload="emojiRain();">
     <div id="container">
         <div id="animate">
         </div>
-      </div>
+    </div>
     <div id="res-container">
 
         {% csrf_token %}
@@ -134,35 +134,20 @@
                         <td>{{ question.question }}</td>
                         <td>{{ question.number_wa }}</td>
                         <td>{{ question.point }}</td>
-    
+
                     </tr>
                 </tbody>
                 {% endfor %}
-    
+
             </table>
         </div>
-    
-    
+
     </div>
-  
+
     <input type="hidden" id="totalPoint" value="{{total_points}}">
     <input type="hidden" id="averagePoint" value="{{average_points}}">
-    <!--
-         {% if total_points < average_points %} <div id="animated-example" class="animated shake">
-        <p>
-            Your score is quite low 😅! Fighting, you will do better next time 😄</p>
-        </div>
-    
-        {% else %}
-        <div id="animated-example" class="animated shake">
-            <p>Very Good !!! Still, don't forget to work on the question you did not get right at the first attempt if
-                there's any 🤭!. </p>
-        </div>
-    
-        {% endif %}
-    -->
-   
+
 </body>
 
 
-    {% endblock %}
+{% endblock %}

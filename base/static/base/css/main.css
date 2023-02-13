@@ -1,6 +1,6 @@
 * {
-    margin:0;
-    padding:0;
+    margin: 0;
+    padding: 0;
     text-decoration: none;
     list-style: none;
     box-sizing: border-box;
@@ -8,50 +8,101 @@
     list-style: none;
 }
 
+/** Navigation bar element styling Start**/
+
 body {
     font-family: montserrat;
     background-size: cover;
-    width : 100%;
-    
+    width: 100%;
 }
 
 .navig {
-  background-color: #333 !important;
-  position: fixed; /* Set the navbar to fixed position */
-  top: 0; /* Position the navbar at the top of the page */
-  width: 100%; /* Full width */
+    background-color: #333 !important;
+    position: fixed;
+    top: 0;
+    width: 100%;
 }
+
+img#logo {
+    width: 7%;
+    margin-top: 12px;
+    margin-left: 10px;
+    vertical-align: bottom;
+}
+
 ul {
     margin-bottom: 0;
     padding-left: 0;
 }
-.navig ul.left-menu{
+
+.navig ul.left-menu {
     display: inline-block;
 }
 
-.navig ul.right-menu{
+.navig ul.right-menu {
     float: right;
     margin-right: 20px;
     margin-bottom: 0;
     padding-bottom: 0;
-   
+
 }
 
-.navig ul.right-menu li.ucontrol, li.uname , .navig ul.left-menu li{
+.navig ul.right-menu li.ucontrol,
+li.uname,
+.navig ul.left-menu li {
     display: inline-block;
     line-height: 20px;
     margin: 25px 5px;
-    
+
 }
 
 .uname a {
-    color:#973d38;
+    color: #973d38;
     text-decoration: none;
-    
+
 }
+
 .uname a:hover {
-    color:#c09492;
+    color: #c09492;
 }
+
+.drop-down {
+    position: absolute;
+    width: 10%;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -o-border-radius: 5px;
+    background: rgba(255, 255, 255, 0.297);
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+    list-style: none;
+    z-index: 1;
+    height: 95%;
+    padding: 10px;
+    display: none;
+}
+
+.uname:hover .drop-down {
+    display: block;
+}
+
+.drop-down li {
+    padding: 5px;
+}
+
+.drop-down li.drop-style a {
+    color: white;
+    cursor: pointer;
+}
+
+.drop-down li.drop-style a:hover {
+    color: black;
+}
+
 .ucontrol a {
     color: white;
     font-size: 17px;
@@ -61,137 +112,12 @@ ul {
     list-style: none;
 }
 
-
 .ucontrol a:hover {
     transition: .5s;
     border-color: #973d38;
     border-width: 2px;
     border-style: solid;
-    
+
 }
 
-.checkbtn {
-    font-size: 30px;
-    color: white;
-    float: right;
-    line-height: 80px;
-    margin-right: 40px;
-    cursor: pointer;
-    display: none;
-}
-
-
-
-@media (max-width: 952px) {
-    label.logo {
-        font-size: 30px;
-        padding-left: 50px;
-
-    }
-
-    header ul li a {
-        font-size: 16px;
-
-    }
-}
-
-@media (max-width: 858px) {
-    .checkbtn {
-        display: block;
-    }
-
-    ul {
-        position: fixed;
-        width: 100%;
-        height: 100vh;
-        background: #2c3e50;
-        top: 80px;
-        left: -100%;
-        text-align: center;
-        transition: all .5s;
-    }
-
-    header ul li {
-        display: block;
-        margin: 50px 0;
-        line-height: 30px;
-    }
-
-    header ul li a {
-        font-size: 20px;
-    }
-
-    a:hover,
-    a.active {
-        background: none;
-        color: #0082e6;
-    }
-
-    #check:checked~ul {
-        left: 0;
-    }
-}
-/*
-.image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-*/
-.bouton {
-    width: 100px;
-    height: 45px;
-    line-height: 45px;
-    text-align: center;
-    position: absolute;
-    border-radius: 5px;
-    top: 50%;
-    left: 68%;
-    -webkit-transform: translateX(-50%);
-    transform: translateX(-50%)
-}
-.drop-down {
-    position: absolute;
-        width: 10%;
-        border-radius: 5px;
-        -webkit-border-radius: 5px;
-        -moz-border-radius: 5px;
-        -o-border-radius: 5px;
-        /* Styles */
-        background: rgba(255, 255, 255, 0.297);
-        -webkit-transition: all 0.3s ease-out;
-        -moz-transition: all 0.3s ease-out;
-        -ms-transition: all 0.3s ease-out;
-        -o-transition: all 0.3s ease-out;
-        transition: all 0.3s ease-out;
-        list-style: none;
-        z-index: 1;
-        height : 95%;
-        padding: 10px;
-        
-        /* Hiding */
-        display: none;
-}
-.uname:hover .drop-down {
-    display: block;
-}
-.drop-down li {
-    padding : 5px;
-}
-.drop-down li.drop-style a {
-    color:white;
-    cursor: pointer;
-}
-.drop-down li.drop-style a:hover {
-    color:black;
-}
-#check {
-    display: none;
-}
-img#logo{
-    width : 7%;
-    margin-top : 12px;
-    margin-left : 10px;
-    vertical-align: bottom;
-   
-}
+/** Navigation bar element styling End**/

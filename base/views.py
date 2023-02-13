@@ -132,7 +132,6 @@ def addQuestion(request, pk):
         explanation = data_['explanation']
         
         
-        print(data_)
         if question[0] == None or answer[0] == "" or options[0] == "" or explanation[0] == "":
             return JsonResponse("error",safe=False)
         
@@ -155,7 +154,6 @@ def deleteQuestion(request,pk):
     question.delete()
     return render(request,"base/edit_category.html", context)
 
-
 def wrongAnswer(request):
     questionId = 0
     countwrongA = 0
@@ -177,11 +175,8 @@ def wrongAnswer(request):
 
     if (point <= 0 or point == None):
         point = 0
-    #ques = Question.objects.get(id=questionId) # get instance of the question
 
     Question.objects.filter(id=questionId).update(user = user, number_wa = countwrongA, point = point)
-
-    #Number_Of_WrongA.objects.create(question = ques, user = user, number_wa = countwrongA)
    
     return JsonResponse(countwrongA, safe=False)
 
@@ -191,11 +186,9 @@ def resultsPage(request):
     questions = Question.objects.filter(user=user)
     question_count = questions.count()
     total_pointsDict = Question.objects.filter(user=user).aggregate(Sum('point'))
-    #average_pointsDict = Question.objects.filter(user=user).aggregate(Avg('point'))
     total_points = total_pointsDict.get('point__sum')
     average_points = round((question_count / 2), 1)
     print(average_points)
     context = {'questions': questions, 'question_count':question_count, 'total_points': total_points, 'average_points': average_points}
 
-    
     return render(request, "base/final_result.html", context)
